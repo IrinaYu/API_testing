@@ -26,19 +26,6 @@ public class Main {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //        JSONObject newIssueJSON = new JSONObject();
 //        JSONObject fields = new JSONObject();
 //        fields.put("summary", "Test Summary");
