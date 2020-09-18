@@ -28,18 +28,16 @@ public class CreateIssue {
         fields.put("project", project);
         issue.put("fields", fields);
 
-        ValidatableResponse response = given().
+        Response createIssueResponse = given().
                 auth().preemptive().basic("IrynaKapustina", "IrynaKapustina").
                 contentType(ContentType.JSON).
                 body(issue.toJSONString()).
                 when().
                 post("https://jira.hillel.it/rest/api/2/issue").
                 then().
-                statusCode(201).contentType(ContentType.JSON);
-
-        String responseBody = response.extract().asString();
-        System.out.println(responseBody);
-        String keyIssue = response.extract().path("key");
+                statusCode(201).contentType(ContentType.JSON).
+                extract().response();
+        String keyIssue = createIssueResponse.path("key");
 
         Response responseCreatedIssue = given().
                 auth().preemptive().basic("IrynaKapustina", "IrynaKapustina").

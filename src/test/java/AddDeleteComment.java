@@ -1,6 +1,5 @@
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
@@ -32,15 +31,16 @@ public class AddDeleteComment {
 
 
         //Create issue
-        ValidatableResponse response = given().
+        Response createIssueResponse = given().
                 auth().preemptive().basic("IrynaKapustina", "IrynaKapustina").
                 contentType(ContentType.JSON).
                 body(issue.toJSONString()).
                 when().
                 post("https://jira.hillel.it/rest/api/2/issue").
                 then().
-                statusCode(201).contentType(ContentType.JSON);
-        String keyIssue = response.extract().path("key");
+                statusCode(201).contentType(ContentType.JSON).
+                extract().response();
+        String keyIssue = createIssueResponse.path("key");
 
         //Get issue response
         Response responseGetIssue = given().
