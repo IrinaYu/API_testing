@@ -1,11 +1,10 @@
 import io.restassured.http.ContentType;
-
 import io.restassured.response.Response;
-import io.restassured.response.Validatable;
-import io.restassured.response.ValidatableResponse;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+import static org.testng.Assert.*;
 
 public class AddDeleteComment {
 
@@ -31,21 +30,20 @@ public class AddDeleteComment {
 
 
         //Create issue
-        ValidatableResponse response = given().
+        Response createIssueResponse = given().
+
                 auth().preemptive().basic("IrynaKapustina", "IrynaKapustina").
                 contentType(ContentType.JSON).
                 body(issue.toJSONString()).
                 when().
                 post("https://jira.hillel.it/rest/api/2/issue").
                 then().
-                statusCode(201).contentType(ContentType.JSON);
-
-        String responseBody = response.extract().asString();
-        System.out.println(responseBody);
-        String keyIssue = response.extract().path("key");
+                statusCode(201).contentType(ContentType.JSON).
+                extract().response();
+        String keyIssue = createIssueResponse.path("key");
 
         //Get issue response
-        Response responseCreatedIssue = given().
+        Response responseGetIssue = given().
                 auth().preemptive().basic("IrynaKapustina", "IrynaKapustina").
                 contentType(ContentType.JSON).
                 when().
@@ -53,7 +51,6 @@ public class AddDeleteComment {
                 then().
                 statusCode(200).contentType(ContentType.JSON).
                 extract().response();
-        responseCreatedIssue.print();
 
         //Post comment
         Response responsePostComment = given().
@@ -65,22 +62,33 @@ public class AddDeleteComment {
                 then().
                 statusCode(201).
                 extract().response();
-        responsePostComment.print();
 
-        //Post comment
+        String commentId = responsePostComment.path("id");
+
+        //Delete comment
         Response responseDeleteComment = given().
                 auth().preemptive().basic("IrynaKapustina", "IrynaKapustina").
                 contentType(ContentType.JSON).
-                body(comment.toJSONString()).
                 when().
-                delete("https://jira.hillel.it/rest/api/2/issue/" + keyIssue + "/comment").
+                delete("https://jira.hillel.it/rest/api/2/issue/" + keyIssue + "/comment/" + commentId).
                 then().
-                statusCode(201).
+                statusCode(204).
                 extract().response();
-        responsePostComment.print();
 
+        //Get issue response again
+        String responseGetIssueForCheckingComment = given().
+                auth().preemptive().basic("IrynaKapustina", "IrynaKapustina").
+                contentType(ContentType.JSON).
+                when().
+                get("https://jira.hillel.it/rest/api/2/issue/" + keyIssue).
+                then().
+                statusCode(200).contentType(ContentType.JSON).
+                time(lessThan(1000L)).
+                extract().response().path("fields.comment.comments").toString();
 
+        String emptyComment = new String("[]");
+        assertEquals(responseGetIssueForCheckingComment, emptyComment);
+        assertNotEquals(responseGetIssueForCheckingComment, comment.toString());
     }
-
-
 }
+
