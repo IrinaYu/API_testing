@@ -6,7 +6,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.*;
 
-
 public class AddDeleteComment {
 
     @Test
@@ -32,6 +31,7 @@ public class AddDeleteComment {
 
         //Create issue
         Response createIssueResponse = given().
+
                 auth().preemptive().basic("IrynaKapustina", "IrynaKapustina").
                 contentType(ContentType.JSON).
                 body(issue.toJSONString()).
@@ -62,6 +62,7 @@ public class AddDeleteComment {
                 then().
                 statusCode(201).
                 extract().response();
+
         String commentId = responsePostComment.path("id");
 
         //Delete comment
@@ -90,3 +91,4 @@ public class AddDeleteComment {
         assertNotEquals(responseGetIssueForCheckingComment, comment.toString());
     }
 }
+

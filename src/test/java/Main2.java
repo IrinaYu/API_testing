@@ -3,8 +3,8 @@ import org.json.simple.JSONObject;
 public class Main2 {
     public static void main(String[] args) {
         JSONObject login = new JSONObject();
-        login.put ("username", "webinar5");
-        login.put ("password", "webinar5");
+        login.put ("username", "IrynaKapustina");
+        login.put ("password", "IrynaKapustina");
 
 //        System.out.println(login.toJSONString());
 
