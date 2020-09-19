@@ -28,8 +28,8 @@ public class JiraJSONObjects {
     }
 
     public static String commentJSON(){
+
         JSONObject comment = new JSONObject();
-//        JSONObject body = new JSONObject();
         comment.put("body", "Some comment from Ira");
 
         return comment.toString();
