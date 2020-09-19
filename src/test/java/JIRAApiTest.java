@@ -1,6 +1,5 @@
 import io.restassured.http.Cookies;
 import io.restassured.response.Response;
-import io.restassured.response.ResponseOptions;
 import org.hamcrest.Matcher;
 import org.hamcrest.text.MatchesPattern;
 import org.testng.annotations.Test;
@@ -34,10 +33,10 @@ public class JIRAApiTest {
     }
 
 
-    @Test
-    public void createIssue() {
-        Response response = JiraAPISteps.createIssue();
-        assertEquals(201, response.statusCode());
-        response.then().extract().path("key");
-    }
+//    @Test
+//    public void createIssue() {
+//        Response response = JiraAPISteps.createIssue();
+//        assertEquals(201, response.statusCode());
+//        response.then().extract().path("key");
+//    }
 }

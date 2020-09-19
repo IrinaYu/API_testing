@@ -1,27 +1,37 @@
 package utils;
 
 import org.json.simple.JSONObject;
-
 public class JiraJSONObjects {
 
-
     public static String newIssueJSON() {
-        JSONObject newIssueJSON = new JSONObject();
+
+        JSONObject newIssue = new JSONObject();
         JSONObject fields = new JSONObject();
-        fields.put("summary", "Artur Test Summary");
+        JSONObject reporter = new JSONObject();
         JSONObject issueType = new JSONObject();
-        issueType.put("id", "10107");
         JSONObject project = new JSONObject();
-        project.put("id", "11400");
-        JSONObject assignee = new JSONObject();
-        assignee.put("name", "webinar5");
+        JSONObject comment = new JSONObject();
 
-        fields.put("issueType", issueType);
+
+        issueType.put("id", "10105");
+        issueType.put("name", "test");
+        project.put("id", "10508");
+        reporter.put("name", "IrynaKapustina");
+        fields.put("issuetype", issueType);
+        fields.put("summary", "some summary");
         fields.put("project", project);
-        fields.put("assignee", assignee);
+        fields.put("reporter", reporter);
+        newIssue.put("fields", fields);
+        comment.put("body", "Some comment from Ira");
 
-        newIssueJSON.put("fields", fields);
-        return newIssueJSON.toJSONString();
+        return newIssue.toJSONString();
     }
 
+    public static String commentJSON(){
+
+        JSONObject comment = new JSONObject();
+        comment.put("body", "Some comment from Ira");
+
+        return comment.toString();
+    }
 }
