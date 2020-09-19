@@ -1,17 +1,10 @@
 import io.restassured.http.ContentType;
-import io.restassured.http.Cookies;
 import io.restassured.response.Response;
-import io.restassured.response.ResponseOptions;
-import org.hamcrest.Matcher;
-import org.hamcrest.text.MatchesPattern;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 
-import java.util.regex.Pattern;
-
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class JIRAApiTest2 {
 
@@ -93,14 +86,14 @@ public class JIRAApiTest2 {
                 extract().response();
 
     }
-
-    @Test
-    public void createIssue() {
-        Response response = JiraAPISteps.createIssue();
-        assertEquals(201, response.statusCode());
-        response.then().extract().path("key");
-        // TODO check that id matches pattern
-    }
+//
+//    @Test
+//    public void createIssue() {
+//        Response response = JiraAPISteps.createIssue();
+//        assertEquals(201, response.statusCode());
+//        response.then().extract().path("key");
+//        // TODO check that id matches pattern
+//    }
 }
 
 //        Cookies coockies = response.getDetailedCookies();
