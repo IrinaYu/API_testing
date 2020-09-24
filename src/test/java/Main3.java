@@ -15,6 +15,5 @@ public class Main3 {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }
