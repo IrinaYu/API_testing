@@ -14,7 +14,7 @@ public class JiraAPISteps {
                 contentType(ContentType.JSON).
                 body(JiraJSONObjects.newIssueJSON()).
                 when().
-                post(APIPathes.issue).
+                post(APIPathes.issueURL()).
                 then().
                 statusCode(201).contentType(ContentType.JSON).
                 extract().response();
@@ -26,7 +26,7 @@ public class JiraAPISteps {
                 auth().preemptive().basic(Credentials.username, Credentials.password).
                 contentType(ContentType.JSON).
                 when().
-                get(APIPathes.issue + keyIssue).
+                get(APIPathes.issueURL() + keyIssue).
                 then().
                 statusCode(200).contentType(ContentType.JSON).
                 extract().response();
@@ -39,7 +39,7 @@ public class JiraAPISteps {
                 auth().preemptive().basic(Credentials.username, Credentials.password).
                 contentType(ContentType.JSON).
                 when().
-                delete(APIPathes.issue + keyIssue).
+                delete(APIPathes.issueURL() + keyIssue).
                 then().
                 statusCode(204).
                 extract().response();
@@ -51,7 +51,7 @@ public class JiraAPISteps {
                 auth().preemptive().basic(Credentials.username, Credentials.password).
                 contentType(ContentType.JSON).
                 when().
-                get(APIPathes.issue + keyIssue).
+                get(APIPathes.issueURL() + keyIssue).
                 then().
                 statusCode(404).
                 extract().response();
@@ -64,7 +64,7 @@ public class JiraAPISteps {
                 contentType(ContentType.JSON).
                 body(JiraJSONObjects.commentJSON()).
                 when().
-                post(String.format(APIPathes.comment, keyIssue)).
+                post(String.format(APIPathes.commentURL(), keyIssue)).
                 then().
                 statusCode(201).
                 extract().response();
@@ -76,7 +76,7 @@ public class JiraAPISteps {
                 auth().preemptive().basic(Credentials.username, Credentials.password).
                 contentType(ContentType.JSON).
                 when().
-                delete(String.format(APIPathes.commentForDeleting, keyIssue, commentId)).
+                delete(String.format(APIPathes.commentForDeletingURL(), keyIssue, commentId)).
                 then().
                 statusCode(204).
                 extract().response();
@@ -88,7 +88,7 @@ public class JiraAPISteps {
                 auth().preemptive().basic(Credentials.username, Credentials.password).
                 contentType(ContentType.JSON).
                 when().
-                get(APIPathes.issue + keyIssue).
+                get(APIPathes.issueURL() + keyIssue).
                 then().
                 statusCode(200).contentType(ContentType.JSON).
                 time(lessThan(1000L)).
