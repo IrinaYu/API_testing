@@ -1,16 +1,18 @@
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 import utils.JiraAPISteps;
 import utils.JiraJSONObjects;
-
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 
+
 public class JIRAApiTest2 {
 
+    @Feature("existing issue feature")
     @Test
     public void getExistingIssue() {
 
@@ -29,6 +31,7 @@ public class JIRAApiTest2 {
         assertEquals("WEBINAR-9060", response.path("key")); // JSON Path syntax
     }
 
+    @Feature("create issue raw")
     @Test
     public void createIssueRaw(){
 
@@ -60,6 +63,7 @@ public class JIRAApiTest2 {
                 extract().response().print();
     }
 
+    @Feature("add delete comment")
     @Test
     public void addDeleteComment() {
 
@@ -79,6 +83,7 @@ public class JIRAApiTest2 {
         assertNotEquals(getIssueForCheckingComment, JiraJSONObjects.commentJSON());
     }
 
+    @Feature("create issue home task")
     @Test
     public void createIssueHomeTask(){
 

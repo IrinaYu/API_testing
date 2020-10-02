@@ -1,13 +1,14 @@
+import io.qameta.allure.Feature;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import utils.JiraAPISteps;
 import utils.JiraJSONObjects;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 
 public class AddDeleteComment {
 
+    @Feature("issue")
     @Test
     public void addDeleteComment() {
 
